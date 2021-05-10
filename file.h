@@ -7,7 +7,7 @@ using namespace std;
 string SaveToFile();
 void SaveResultToFile(Array &arr, int result);
 void SaveInitialDataToFile(Array &arr);
-Array InputFromFile();
+void InputFromFile(Array & arrayToReturn);
 bool CheckExistFile(string &filePath);
 bool CreateNewFile(string &filePath);
 string EnterFilePath();

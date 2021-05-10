@@ -35,7 +35,7 @@ template <typename NUM> inline bool fileInput(ifstream &file, NUM &arg)
 
 	error = (file.bad() || file.fail());
 	if (error) {
-		cout << "Ошибка чтения окружности!" << endl;
+		cout << "Ошибка чтения массива!" << endl;
 		file.clear();
 		file.ignore();
 		return false;

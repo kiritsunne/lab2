@@ -6,6 +6,7 @@
 #include "test.h"
 #include"Array.h"
 #include"file.h"
+#include "output.h"
 
 #define FROM -100
 #define TO 100
@@ -66,7 +67,7 @@ void Menu()
 		case TEST: {
 			system("cls");
 			cout << "Тестирование" << endl << endl;
-			//Test();
+			Test();
 			system("pause");
 			break;
 		}
@@ -86,7 +87,7 @@ void MenuTask()
 	setlocale(LC_ALL, "RU");
 
 	int userChoice = 0;
-	int arrSize = 0;
+	int arrSize = 0, mediana = 1;
 	Array arr;
 	//double x = 0, y = 0, radius = 0;
 
@@ -131,9 +132,9 @@ void MenuTask()
 		}
 		//ввод из файла
 		case INP_FILE: {
-			while (arrSize == 0) {
+			while (arr.GetArrSize() == 0) {
 				cout << "Данные для массива:" << endl;
-				arr = InputFromFile();
+				InputFromFile(arr);
 			}
 			break;
 		}
@@ -150,6 +151,7 @@ void MenuTask()
 			for (int i = 0; i < arrSize; ++i) {
 				arr[i] = RandomInt(FROM, TO);
 			}
+			break;
 		}
 		//вернуться в главное меню
 		case RETURN: {
@@ -162,17 +164,27 @@ void MenuTask()
 			break;
 		}
 		}
-		//выполняется если были введены данные двух окружностей
+		//выполняется если были введены данные массива
 		//и не выбран пункт НАЗАД
 		if (flagExitSubMenu && arr.GetArrSize() > 0) {
 			cout << "Массив размера " << arr.GetArrSize() << endl;
 			for (int i = 0; i < arr.GetArrSize(); ++i) {
-				cout << arr[i] << " ";
+				cout << "[" << i+1 << "]: " << arr[i] << ", ";
 			}
-			cout << "Медиана массива: " << Mediana(arr) << endl << endl;
-			
+			mediana = Mediana(arr);
+			cout << endl << "Номер элемента медианы массива: " << mediana << endl << endl;
+			for (int i = 0; i < arr.GetArrSize(); ++i) {
+				if (i == mediana - 1) {
+					setColor(Green, White);
+					cout << "[" << i + 1 << "]: " << arr[i] << ", ";
+					setColor(Black, White);
+				}
+				else {
+					cout << "[" << i + 1 << "]: " << arr[i] << ", ";
+				}
+			}
 
-			cout << "Желаете сохранить исходные данные в файл?" << endl
+			cout << endl << "Желаете сохранить исходные данные в файл?" << endl
 				<< "1 - Да" << endl
 				<< "0 - Нет" << endl;
 			input(flagSaveToFile);

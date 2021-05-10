@@ -16,13 +16,17 @@ int & Array::operator[](const int index)
 	return m_array[index];
 }
 
-void Array::operator=(Array* arr)
+Array & Array::operator=(const Array & arr)
 {
-	this->m_size = arr->GetArrSize();
-	arr->SetArraySize(0);
-	this->m_array = arr->GetArrayPointer();
-	arr->SetArrayPointer(nullptr);
-	//return *this;
+	if (this != &arr) {
+		delete m_array;
+		m_size = arr.m_size;
+		m_array = new int[m_size];
+		for (int i = 0; i < m_size; i++) {
+			m_array[i] = arr.m_array[i];
+		}
+	}
+	return *this;
 }
 
 int Array::GetArrSize()
@@ -47,8 +51,10 @@ void Array::SetArrayPointer(int * array)
 
 Array::~Array()
 {
-	if (m_size != 0)
+	if (m_size != 0) {
+		m_size = 0;
 		delete m_array;
+	}
 }
 
 

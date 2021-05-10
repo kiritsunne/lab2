@@ -11,7 +11,7 @@ public:
 	
 
     int& operator[](const int index);
-	void operator=(Array* arr);
+	Array & operator=(const Array & arr);
 	int GetArrSize();
 	int * GetArrayPointer();
 	void SetArraySize(int size);

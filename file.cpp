@@ -89,7 +89,7 @@ void SaveInitialDataToFile(Array & arr)
 	file.close();
 }
 //ввод из файла
-Array InputFromFile()
+void InputFromFile(Array & arrayToReturn)
 {
 	string filePath;
 	filePath = EnterFilePath();
@@ -101,7 +101,6 @@ Array InputFromFile()
 
 	ifstream file(filePath, ios_base::binary);
 	int arraySize = 0;
-	//double x = 0, y = 0, radius = 0;
 
 	bool
 		//если пользователь соглавсен использовать
@@ -120,8 +119,6 @@ Array InputFromFile()
 
 	string bufString;
 	int bufNum, counter = 0;
-	int * bufArray = 0;
-	Array arrayToReturn;
 	while (!file.eof() && !agreeFlag) {
 
 		file >> bufString;
@@ -134,26 +131,23 @@ Array InputFromFile()
 			}
 			correctFileInputFlag = (fileInput(file, arraySize) && arraySize > 0);
 			if (correctFileInputFlag)
-				bufArray = new int[arraySize];
+				arrayToReturn = Array(arraySize);
 			
 			while (bufString != "[") {
 				file >> bufString;
 			}
 			counter = 0;
-			while (bufString != "]") {
+			for (int i = 0; i < arraySize; ++i) {
 				correctFileInputFlag &= fileInput(file, bufNum);
-				if (correctFileInputFlag && (bufArray != 0)) {
-					bufArray[counter] = bufNum;
+				if (correctFileInputFlag && (arrayToReturn.GetArrayPointer() != 0)) {
+					arrayToReturn[i] = bufNum;
 				}
-				counter += 1;
 			}
-			
-
 
 			if (correctFileInputFlag) {
 				cout << "Массив размера " << arraySize << endl;
 				for (int i = 0; i < arraySize; ++i) {
-					cout << bufArray[i] << " ";
+					cout << arrayToReturn[i] << " ";
 				}
 				
 				cout << "Выбрать данный массив?" << endl
@@ -161,27 +155,17 @@ Array InputFromFile()
 					<< "0 - Нет" << endl;
 
 				input(agreeFlag);
-
-				if (agreeFlag){
-					arrayToReturn.SetArraySize(arraySize);
-					arrayToReturn.SetArrayPointer(bufArray);
-					return arrayToReturn;
-				}
 			}
 			else {
-				delete bufArray;
 				agreeFlag = false;
-				return 0;
 			}
 			correctFileInputFlag = true;
 		}
 	}
 	if (emptyDataFlag == true) {
 		cout << "Нет данных для выбора" << endl;
-		return 0;
 	}
 	file.close();
-	return 0;
 }
 //Проверка существующего файла
 bool CheckExistFile(string &filePath) {
