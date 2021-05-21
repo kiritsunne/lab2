@@ -7,7 +7,7 @@ int Mediana(Array & arr)
 {
 	int min = INT_MAX;
 	int sum = 0, sumRight = 0, sumLeft = 0;
-	int mediana = 1;
+	int mediana = 0;
 	for (int i = 0; i < arr.GetArrSize(); ++i) {
 		sum += arr[i];
 	}

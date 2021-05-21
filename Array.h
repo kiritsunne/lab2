@@ -10,7 +10,7 @@ public:
 	Array(int size);
 	
 
-    int& operator[](const int index);
+    int & operator[](const int index);
 	Array & operator=(const Array & arr);
 	int GetArrSize();
 	int * GetArrayPointer();

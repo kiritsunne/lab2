@@ -48,9 +48,9 @@ string SaveToFile() {
 	return filePath;
 }
 //Сохранение результата в файл
-void SaveResultToFile(Array &arr, int result)
+void SaveResultToFile(Array & arr, int result)
 {
-	ofstream file(SaveToFile(), ios_base::app);
+	ofstream file(SaveToFile(), ios_base::app);  // ???
 	if (file.is_open()) {
 		file << "Массив размера " << arr.GetArrSize() << endl;
 		for (int i = 0; i < arr.GetArrSize(); ++i) {
@@ -136,7 +136,7 @@ void InputFromFile(Array & arrayToReturn)
 			while (bufString != "[") {
 				file >> bufString;
 			}
-			counter = 0;
+			//counter = 0;
 			for (int i = 0; i < arraySize; ++i) {
 				correctFileInputFlag &= fileInput(file, bufNum);
 				if (correctFileInputFlag && (arrayToReturn.GetArrayPointer() != 0)) {
@@ -155,6 +155,9 @@ void InputFromFile(Array & arrayToReturn)
 					<< "0 - Нет" << endl;
 
 				input(agreeFlag);
+				if (!agreeFlag) {
+					arrayToReturn.SetArraySize(0);
+				}
 			}
 			else {
 				agreeFlag = false;
@@ -168,7 +171,7 @@ void InputFromFile(Array & arrayToReturn)
 	file.close();
 }
 //Проверка существующего файла
-bool CheckExistFile(string &filePath) {
+bool CheckExistFile(string & filePath) {
 	bool correctFileFlag = false;
 	if (fs::exists(fs::status(filePath))) {
 		correctFileFlag = true;
@@ -184,7 +187,7 @@ bool CheckExistFile(string &filePath) {
 	return correctFileFlag;
 }
 //создание файла для сохранение
-bool CreateNewFile(string &filePath) {
+bool CreateNewFile(string & filePath) {
 
 	if (fs::exists(fs::status(filePath))) {
 		cout << "Такой файл уже существует" << endl;

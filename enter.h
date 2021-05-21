@@ -5,11 +5,11 @@
 
 using namespace std;
 
-template <typename NUM> void input(NUM& arg);
-template <typename NUM> bool fileInput(ifstream &file, NUM &arg);
+template <typename NUM> void input(NUM & arg);
+template <typename NUM> bool fileInput(ifstream & file, NUM & arg);
 int RandomInt(int leftSide, int rightSide);
 
-template <typename NUM> inline void input(NUM &arg)
+template <typename NUM> inline void input(NUM & arg)
 {
 	NUM _buffer; bool error;
 
@@ -18,7 +18,7 @@ template <typename NUM> inline void input(NUM &arg)
 		error = (cin.fail() || cin.bad());
 		if (error) {
 			cin.clear();
-			cin.ignore(cin.rdbuf()->in_avail());
+			cin.ignore(cin.rdbuf()->in_avail()); // ???
 			cout << "Ошибка ввода! Повторите, пожалуйста" << endl;
 		}
 		else break;
@@ -27,7 +27,7 @@ template <typename NUM> inline void input(NUM &arg)
 	arg = _buffer;
 }
 
-template <typename NUM> inline bool fileInput(ifstream &file, NUM &arg)
+template <typename NUM> inline bool fileInput(ifstream & file, NUM & arg)
 {
 	NUM _buffer; bool error;
 

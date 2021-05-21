@@ -1,4 +1,4 @@
 #pragma once
 #include"Array.h"
 
-int Mediana(Array& arr);
+int Mediana(Array & arr);
